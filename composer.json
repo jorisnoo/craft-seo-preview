@@ -1,0 +1,59 @@
+{
+    "name": "jorisnoo/craft-seo-preview",
+    "description": "SEO preview targets for Craft CMS elements",
+    "homepage": "https://github.com/jorisnoo/craft-seo-preview",
+    "type": "craft-plugin",
+    "license": "MIT",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "seo",
+        "preview"
+    ],
+    "support": {
+        "source": "https://github.com/jorisnoo/craft-seo-preview",
+        "issues": "https://github.com/jorisnoo/craft-seo-preview/issues"
+    },
+    "authors": [
+        {
+            "name": "Joris Noordermeer",
+            "email": "contact@noordermeer.ch",
+            "homepage": "https://github.com/jorisnoo",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "craftcms/cms": "^5.0.0"
+    },
+    "require-dev": {
+        "laravel/pint": ">=1.18.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "jorisnoo\\SeoPreview\\": "src/"
+        }
+    },
+    "scripts": {
+        "lint": "pint"
+    },
+    "extra": {
+        "handle": "seo-preview",
+        "name": "SEO Preview",
+        "developer": "Joris Noordermeer",
+        "class": "jorisnoo\\SeoPreview\\SeoPreview",
+        "hasCpSettings": false,
+        "hasCpSection": false
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
