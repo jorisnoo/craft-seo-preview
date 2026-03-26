@@ -1,6 +1,6 @@
 <?php
 
-namespace jorisnoo\SeoPreview;
+namespace Noo\CraftSeoPreview;
 
 use Craft;
 use craft\base\Element;
@@ -9,6 +9,7 @@ use craft\events\RegisterPreviewTargetsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\helpers\UrlHelper;
 use craft\web\UrlManager;
+use craft\web\View;
 use yii\base\Event;
 
 class SeoPreview extends Plugin
@@ -39,6 +40,14 @@ class SeoPreview extends Plugin
                         'siteId' => $element->siteId,
                     ]),
                 ];
+            }
+        );
+
+        Event::on(
+            View::class,
+            View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
+            function (\craft\events\RegisterTemplateRootsEvent $event) {
+                $event->roots['seo-preview'] = $this->getBasePath() . '/templates';
             }
         );
 

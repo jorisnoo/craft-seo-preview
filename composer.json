@@ -33,7 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "jorisnoo\\SeoPreview\\": "src/"
+            "Noo\\CraftSeoPreview\\": "src/"
         }
     },
     "scripts": {
@@ -43,7 +43,7 @@
         "handle": "seo-preview",
         "name": "SEO Preview",
         "developer": "Joris Noordermeer",
-        "class": "jorisnoo\\SeoPreview\\SeoPreview",
+        "class": "Noo\\CraftSeoPreview\\SeoPreview",
         "hasCpSettings": false,
         "hasCpSection": false
     },
