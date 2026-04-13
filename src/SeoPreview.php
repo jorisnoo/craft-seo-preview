@@ -34,7 +34,7 @@ class SeoPreview extends Plugin
                     return;
                 }
                 $event->previewTargets[] = [
-                    'label' => Craft::t('app', 'SEO Preview'),
+                    'label' => Craft::t('seo-preview', 'SEO Preview'),
                     'url' => UrlHelper::siteUrl('seopreview/preview', [
                         'elementId' => $element->id,
                         'siteId' => $element->siteId,
