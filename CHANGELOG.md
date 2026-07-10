@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1](https://github.com/jorisnoo/craft-seo-preview/releases/tag/v1.0.1) (2026-07-10)
+
+### Bug Fixes
+
+- require element view permission for SEO preview route ([99968cb](https://github.com/jorisnoo/craft-seo-preview/commit/99968cbc1f21e08b68dd826ddfd0508a69317092))
+
+### Chores
+
+- rename LICENSE to LICENSE.md, tidy metadata, add justfile ([dbab2cb](https://github.com/jorisnoo/craft-seo-preview/commit/dbab2cbb648c3f576ca1850b6b6d0e242ee7d1f5))
 ## [1.0.0](https://github.com/jorisnoo/craft-seo-preview/releases/tag/v1.0.0) (2026-05-12)
 
 ### Features
