@@ -3,15 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="//unpkg.com/alpinejs" defer></script>
 
-    {% set elementId = craft.app.request.getParam('elementId') %}
-    {% set siteId = craft.app.request.getParam('siteId') %}
-    {% set entry = craft.app.elements.getElementById(elementId, null, siteId) %}
+    {% include '_helpers/seo.twig' with { entry } %}
 
-    {% if entry %}
-        {% include '_helpers/seo.twig' with { entry } %}
-    {% endif %}
+    {{ head() }}
 
     <style>
         /* Reset & Base */
@@ -316,7 +311,7 @@
                 <div class="google-card__breadcrumb">
                     <img class="google-card__favicon" src="/favicon.ico" alt="" onerror="this.style.display='none'">
                     <div class="google-card__url-group">
-                        <span class="google-card__site-name" x-text="ogSiteName || '{{ craft.app.request.hostName }}'"></span>
+                        <span class="google-card__site-name" x-text="ogSiteName || hostName"></span>
                         <span class="google-card__url">{{ entry.url ?? '' }}</span>
                     </div>
                 </div>
@@ -356,7 +351,7 @@
                     </div>
                 </template>
                 <div class="facebook-card__body">
-                    <span class="facebook-card__domain" x-text="facebookSiteName || '{{ craft.app.request.hostName }}'"></span>
+                    <span class="facebook-card__domain" x-text="facebookSiteName || hostName"></span>
                     <h3 class="facebook-card__title" x-text="facebookTitle"></h3>
                     <p class="facebook-card__description" x-text="facebookDescription"></p>
                 </div>
@@ -391,7 +386,7 @@
                         </div>
                     </template>
                     <div class="x-card__text">
-                        <span class="x-card__domain" x-text="'{{ craft.app.request.hostName }}'"></span>
+                        <span class="x-card__domain" x-text="hostName"></span>
                         <h3 class="x-card__title" x-text="xTitle"></h3>
                         <p class="x-card__description" x-text="xDescription"></p>
                     </div>
@@ -416,6 +411,7 @@
         function seoPreview() {
             const meta = (selector) => document.querySelector(selector)?.content ?? '';
 
+            const hostName = window.location.hostname;
             const pageTitle = document.title ?? '';
             const metaDescription = meta('meta[name="description"]');
             const ogTitle = meta('meta[property="og:title"]');
@@ -429,6 +425,7 @@
             const twitterImage = meta('meta[name="twitter:image"]');
 
             return {
+                hostName,
                 pageTitle,
                 metaDescription,
                 ogTitle,
@@ -490,5 +487,7 @@
             };
         }
     </script>
+
+    {{ endBody() }}
 </body>
 </html>

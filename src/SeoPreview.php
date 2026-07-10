@@ -53,14 +53,12 @@ class SeoPreview extends Plugin
 
         $request = Craft::$app->getRequest();
 
-        if (! Craft::$app->getUser()->getIsGuest() && $request->getIsSiteRequest() && ! $request->getIsConsoleRequest()) {
+        if (! $request->getIsConsoleRequest() && $request->getIsSiteRequest()) {
             Event::on(
                 UrlManager::class,
                 UrlManager::EVENT_REGISTER_SITE_URL_RULES,
                 static function (RegisterUrlRulesEvent $event) {
-                    $event->rules['seopreview/preview'] = [
-                        'template' => 'seo-preview/seo',
-                    ];
+                    $event->rules['seopreview/preview'] = 'seo-preview/preview/index';
                 }
             );
         }
