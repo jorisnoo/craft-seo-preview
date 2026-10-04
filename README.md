@@ -32,3 +32,7 @@ Your site templates need to include a partial at `_helpers/seo.twig` that output
 ## License
 
 MIT
+
+## Maintainer releases
+
+See [RELEASING.md](RELEASING.md) for versioning, changelog entries and the release command.
