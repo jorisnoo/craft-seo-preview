@@ -27,7 +27,9 @@ The preview reads the actual meta tags from your templates, so it works with wha
 
 ## Template requirements
 
-Your site templates need to include a partial at `_helpers/seo.twig` that outputs the relevant meta tags for the given entry. The plugin passes the entry to this partial and uses the rendered meta tags to build the preview.
+Your site templates need to include a partial at `_helpers/seo.twig` that outputs the relevant meta tags for the given entry. The plugin passes the entry to this partial and uses the rendered meta tags to build the preview. If the partial is missing, the preview shows a notice instead of failing.
+
+The preview uses the language, host and `favicon.ico` of the element's site, so it reflects how the page appears on that site even when the control panel runs on a different host.
 
 ## License
 

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ entry.site.language }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% include '_helpers/seo.twig' with { entry } %}
+    {% if hasSeoPartial %}
+        {% include seoPartial with { entry } %}
+    {% endif %}
 
     {{ head() }}
 
@@ -298,18 +300,34 @@
 
         .char-count.is-empty .char-count__value { color: #9ca3af; }
         .char-count.is-empty .char-count__bar-fill { background: #9ca3af; }
+
+        /* Notices */
+        .notice {
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #fcd34d;
+            background: #fffbeb;
+            color: #92400e;
+        }
     </style>
 </head>
 <body>
     <div class="seo-preview" x-data="seoPreview()" x-cloak>
         <div class="seo-preview__header">{{ 'SEO Preview'|t('seo-preview') }}</div>
 
+        {% if not hasSeoPartial %}
+            <div class="notice" role="alert">
+                {{ 'The template {template} was not found in your site templates. Create it to output the meta tags for the given entry; until then the preview below is empty.'|t('seo-preview', { template: seoPartial }) }}
+            </div>
+        {% endif %}
+
         {# Google #}
         <div class="panel">
             <div class="panel__label">Google</div>
             <div class="google-card">
                 <div class="google-card__breadcrumb">
-                    <img class="google-card__favicon" src="/favicon.ico" alt="" onerror="this.style.display='none'">
+                    <img class="google-card__favicon" src="{{ (siteBaseUrl ?? '/') ~ 'favicon.ico' }}" alt="" onerror="this.style.display='none'">
                     <div class="google-card__url-group">
                         <span class="google-card__site-name" x-text="ogSiteName || hostName"></span>
                         <span class="google-card__url">{{ entry.url ?? '' }}</span>
@@ -411,13 +429,12 @@
         function seoPreview() {
             const meta = (selector) => document.querySelector(selector)?.content ?? '';
 
-            const hostName = window.location.hostname;
+            const hostName = '{{ (hostName ?? '')|e('js') }}' || window.location.hostname;
             const pageTitle = document.title ?? '';
             const metaDescription = meta('meta[name="description"]');
             const ogTitle = meta('meta[property="og:title"]');
             const ogDescription = meta('meta[property="og:description"]');
             const ogImage = meta('meta[property="og:image"]');
-            const ogUrl = meta('meta[property="og:url"]');
             const ogSiteName = meta('meta[property="og:site_name"]');
             const twitterCard = meta('meta[name="twitter:card"]');
             const twitterTitle = meta('meta[name="twitter:title"]');
@@ -431,7 +448,6 @@
                 ogTitle,
                 ogDescription,
                 ogImage,
-                ogUrl,
                 ogSiteName,
                 twitterCard,
                 twitterTitle,

@@ -13,6 +13,11 @@ use yii\web\Response;
 
 class PreviewController extends Controller
 {
+    /**
+     * Site template that outputs the element's meta tags.
+     */
+    public const SEO_PARTIAL = '_helpers/seo.twig';
+
     protected array|bool|int $allowAnonymous = false;
 
     public function actionIndex(): Response
@@ -54,10 +59,19 @@ class PreviewController extends Controller
             throw new ForbiddenHttpException('User not authorized to preview this element.');
         }
 
-        $this->getView()->registerAssetBundle(SeoPreviewAsset::class);
+        $view = $this->getView();
+        $view->registerAssetBundle(SeoPreviewAsset::class);
 
-        return $this->renderTemplate('seo-preview/seo', [
+        // Show the element's own site rather than whatever host serves the preview.
+        $siteBaseUrl = $element->getSite()->getBaseUrl();
+        $hostName = parse_url($element->getUrl() ?? $siteBaseUrl ?? '', PHP_URL_HOST);
+
+        return $this->renderTemplate('seo-preview/_seo', [
             'entry' => $element,
+            'seoPartial' => self::SEO_PARTIAL,
+            'hasSeoPartial' => $view->doesTemplateExist(self::SEO_PARTIAL, View::TEMPLATE_MODE_SITE),
+            'siteBaseUrl' => $siteBaseUrl,
+            'hostName' => is_string($hostName) ? $hostName : null,
         ], View::TEMPLATE_MODE_SITE);
     }
 }
