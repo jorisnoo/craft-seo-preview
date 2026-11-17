@@ -6,6 +6,7 @@ use Craft;
 use craft\base\Element;
 use craft\base\Plugin;
 use craft\events\RegisterPreviewTargetsEvent;
+use craft\events\RegisterTemplateRootsEvent;
 use craft\events\RegisterUrlRulesEvent;
 use craft\helpers\UrlHelper;
 use craft\web\UrlManager;
@@ -46,8 +47,8 @@ class SeoPreview extends Plugin
         Event::on(
             View::class,
             View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
-            function (\craft\events\RegisterTemplateRootsEvent $event) {
-                $event->roots['seo-preview'] = $this->getBasePath() . '/templates';
+            function (RegisterTemplateRootsEvent $event) {
+                $event->roots['seo-preview'] = $this->getBasePath().'/templates';
             }
         );
 
