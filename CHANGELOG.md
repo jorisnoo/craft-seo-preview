@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2026-11-19
+
+### Fixed
+
+- SEO Preview now uses the edited site’s URL, language and matched element, including when preparing a disabled site.
+- Shared preview links render only the draft or element and site selected by Craft, without requiring a second login on the site domain. Direct previews respect Craft’s site and element authorization hooks.
+- The preview template is private, handles a missing SEO partial, and renders all three cards without inline scripts or Alpine, for sites with a strict Content Security Policy.
+
 ## [1.0.1](https://github.com/jorisnoo/craft-seo-preview/releases/tag/1.0.1) (2026-07-10)
 
 ### Bug Fixes

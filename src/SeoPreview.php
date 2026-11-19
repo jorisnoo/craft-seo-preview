@@ -36,10 +36,7 @@ class SeoPreview extends Plugin
                 }
                 $event->previewTargets[] = [
                     'label' => Craft::t('seo-preview', 'SEO Preview'),
-                    'url' => UrlHelper::siteUrl('seopreview/preview', [
-                        'elementId' => $element->id,
-                        'siteId' => $element->siteId,
-                    ]),
+                    'url' => self::previewUrl($element),
                 ];
             }
         );
@@ -63,5 +60,27 @@ class SeoPreview extends Plugin
                 }
             );
         }
+    }
+
+    private static function previewUrl(Element $element): string
+    {
+        $path = 'seopreview/preview';
+        $params = ['elementId' => $element->id, 'siteId' => $element->siteId];
+        $general = Craft::$app->getConfig()->getGeneral();
+        $base = $element->getSite()->getBaseUrl();
+        if ($general->omitScriptNameInUrls || ! $base || ! UrlHelper::isAbsoluteUrl($base)) {
+            return UrlHelper::siteUrl($path, $params, siteId: $element->siteId);
+        }
+
+        // In script-name mode siteUrl() uses the CP host, even with a siteId.
+        $request = Craft::$app->getRequest();
+        $url = $base.($request->getIsConsoleRequest() ? 'index.php' : basename($request->getScriptUrl()));
+        if ($general->usePathInfo || ! $general->pathParam) {
+            $url .= '/'.$path.($general->addTrailingSlashesToUrls ? '/' : '');
+        } else {
+            $params[$general->pathParam] = $path;
+        }
+
+        return UrlHelper::urlWithParams($url, $params);
     }
 }
