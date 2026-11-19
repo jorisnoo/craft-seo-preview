@@ -13,11 +13,13 @@ use craft\services\Sites;
 use craft\web\Application;
 use craft\web\Request;
 use Noo\CraftSeoPreview\SeoPreview;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use yii\base\Event;
 use yii\i18n\I18N;
 
+#[AllowMockObjectsWithoutExpectations]
 final class PreviewTargetTest extends TestCase
 {
     public static function routingModes(): iterable

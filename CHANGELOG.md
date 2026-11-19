@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+
+- Require PHP 8.4 or later.
+- Bump PHPUnit to 13.4 for development.
+
 ## [1.0.2] - 2026-11-19
 
 ### Fixed

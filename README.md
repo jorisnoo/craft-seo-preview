@@ -4,7 +4,7 @@ A Craft CMS plugin that adds an SEO preview target to element live previews. See
 
 ## Requirements
 
-- PHP 8.2+
+- PHP 8.4+
 - Craft CMS 5.0+
 
 ## Installation

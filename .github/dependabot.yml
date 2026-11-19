@@ -13,7 +13,3 @@ updates:
       interval: weekly
     cooldown:
       default-days: 7
-    # PHPUnit 11 is the last major that runs on the minimum supported PHP, 8.2.
-    ignore:
-      - dependency-name: phpunit/phpunit
-        update-types: ["version-update:semver-major"]
