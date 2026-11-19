@@ -1,0 +1,37 @@
+name: Checks
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.5']
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: bcmath, gd, intl, mbstring, pdo_mysql, zip
+          coverage: none
+      - run: composer validate --no-check-publish --no-plugins
+      - run: composer install --no-interaction --prefer-dist
+      - run: composer --no-plugins audit
+      - run: composer --no-plugins check
+  checks:
+    name: Package checks
+    runs-on: ubuntu-latest
+    needs: php
+    if: ${{ always() }}
+    steps:
+      - run: test "$PHP_RESULT" = success
+        env:
+          PHP_RESULT: ${{ needs.php.result }}

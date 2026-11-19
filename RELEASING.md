@@ -10,8 +10,12 @@ Release from `main` using an explicit version without a `v` prefix. `CHANGELOG.m
 
 Configured release checks:
 
+The browser regression uses headless Chrome. Install `google-chrome` on `PATH` or set `CHROME_BIN` to a Chrome/Chromium executable, including for the release helper. It opens only a temporary local HTML file.
+
 ```sh
 composer validate --no-check-publish --no-plugins
+composer --no-plugins audit
+composer --no-plugins check
 ```
 
 Install the project’s normal dependencies first. The helper runs these checks when publishing; dry-run prints them without executing them. Run any additional checks needed for the changed behavior before committing.

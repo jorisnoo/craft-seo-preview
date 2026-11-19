@@ -1,0 +1,77 @@
+{% if entry is not defined or hasPartial is not defined %}{% exit 404 %}{% endif %}
+{% macro count(field, label, limit) %}
+    <div class="char-count" data-count="{{ field }}" data-limit="{{ limit }}">
+        <div class="char-count__row">
+            <span>{{ label }}</span>
+            <span class="char-count__value"></span>
+        </div>
+        <div class="char-count__bar"><div class="char-count__bar-fill"></div></div>
+    </div>
+{% endmacro %}
+<!DOCTYPE html>
+<html lang="{{ entry.site.language }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% if hasPartial %}{% include '_helpers/seo.twig' with { entry } %}{% endif %}
+    {{ head() }}
+</head>
+<body>
+    {{ beginBody() }}
+    <main class="seo-preview" data-host="{{ hostName }}">
+        <div class="seo-preview__header">{{ 'SEO Preview'|t('seo-preview') }}</div>
+        {% if not hasPartial %}
+            <p role="note">{{ 'No _helpers/seo.twig partial was found. Only metadata registered in the page head is shown.'|t('seo-preview') }}</p>
+        {% endif %}
+
+        <section class="panel">
+            <div class="panel__label">Google</div>
+            <div class="google-card">
+                <div class="google-card__breadcrumb">
+                    <img class="google-card__favicon" src="{{ entry.site.baseUrl }}favicon.ico" alt="">
+                    <div class="google-card__url-group">
+                        <span class="google-card__site-name" data-field="siteName"></span>
+                        <span class="google-card__url">{{ entry.url ?? '' }}</span>
+                    </div>
+                </div>
+                <h3 class="google-card__title" data-field="googleTitle"></h3>
+                <p class="google-card__description" data-field="googleDescription"></p>
+            </div>
+            <div class="char-counts">
+                {{ _self.count('googleTitle', 'Title', 60) }}
+                {{ _self.count('googleDescription', 'Description', 155) }}
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel__label">Facebook</div>
+            <div class="facebook-card">
+                <div class="facebook-card__image" data-image="facebook" hidden><img alt=""></div>
+                <div class="facebook-card__body">
+                    <span class="facebook-card__domain" data-field="siteName"></span>
+                    <h3 class="facebook-card__title" data-field="facebookTitle"></h3>
+                    <p class="facebook-card__description" data-field="facebookDescription"></p>
+                </div>
+            </div>
+            <div class="char-counts">{{ _self.count('facebookTitle', 'Title', 60) }}</div>
+        </section>
+
+        <section class="panel">
+            <div class="panel__label">Twitter / X</div>
+            <div class="x-card">
+                <div class="x-card__image--large" data-image="large" hidden><img alt=""></div>
+                <div class="x-card__body">
+                    <div class="x-card__image--small" data-image="small" hidden><img alt=""></div>
+                    <div class="x-card__text">
+                        <span class="x-card__domain" data-field="hostName"></span>
+                        <h3 class="x-card__title" data-field="xTitle"></h3>
+                        <p class="x-card__description" data-field="xDescription"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="char-counts">{{ _self.count('xTitle', 'Title', 70) }}</div>
+        </section>
+    </main>
+    {{ endBody() }}
+</body>
+</html>
