@@ -17,6 +17,7 @@ use craft\web\User as Session;
 use craft\web\View;
 use Noo\CraftSeoPreview\assets\SeoPreviewAsset;
 use Noo\CraftSeoPreview\controllers\PreviewController;
+use PHPUnit\Framework\Attributes\AllowMockObjectsWithoutExpectations;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use yii\base\ExitException;
@@ -24,6 +25,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\ErrorHandler;
 use yii\web\ForbiddenHttpException;
 
+#[AllowMockObjectsWithoutExpectations]
 final class PreviewControllerTest extends TestCase
 {
     private PreviewController $controller;

@@ -24,12 +24,12 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "craftcms/cms": "^5.0.0"
     },
     "require-dev": {
         "laravel/pint": "^1.18.1",
-        "phpunit/phpunit": "^11.5",
+        "phpunit/phpunit": "^13.4",
         "symfony/process": "^6.4 || ^7.0 || ^8.0"
     },
     "autoload": {
